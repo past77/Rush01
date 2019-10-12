@@ -2,6 +2,8 @@
 #include "HostnameModule.hpp"
 #include "UsernameModule.hpp"
 #include "OSVersionModule.hpp"
+#include "DateTimeModule.hpp"
+
 
 int main(){
 	Data *d;
@@ -18,5 +20,8 @@ int main(){
 	d = htm.getData();
 	std::cout << d->data << std::endl;
 
+	DateTimeModule dtm;
+	d = dtm.getData();
+	std::cout << d->data << std::endl;
 
 }
