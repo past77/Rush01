@@ -20,7 +20,7 @@ std::string	DateTimeModule::setData(){
 }
 
 Data *		DateTimeModule::getData(void){
-	this->d->name = "Hostname";
+	this->d->name = "Date/Time";
 	d->data = setData();
 	return d;
 }

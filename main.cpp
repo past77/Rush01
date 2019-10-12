@@ -3,7 +3,7 @@
 #include "UsernameModule.hpp"
 #include "OSVersionModule.hpp"
 #include "DateTimeModule.hpp"
-
+#include "CPUModule.hpp"
 
 int main(){
 	Data *d;
@@ -18,10 +18,14 @@ int main(){
 
 	HostnameModule htm;
 	d = htm.getData();
-	std::cout << d->data << std::endl;
+	std::cout << d->name << std::endl;
 
 	DateTimeModule dtm;
 	d = dtm.getData();
-	std::cout << d->data << std::endl;
+	std::cout << d->data ;
+
+	CPUModule cpu;
+	d = cpu.getData();
+	std::cout << d->data;
 
 }
