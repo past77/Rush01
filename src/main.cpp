@@ -1,4 +1,5 @@
 #include "GUI.hpp"
+#include "CLI.hpp"
 #include <sys/time.h>
 
 std::string rtrim(const std::string& s)
@@ -32,10 +33,10 @@ unsigned long long get_time()
 
 int main(int, char**)
 {
-    GUI interface;
+    // GUI interface;
+    CLI cli;
 
-
-    interface.mainloop();
-
+    // interface.mainloop();
+    cli.mainloop();
     return 0;
 }

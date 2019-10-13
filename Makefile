@@ -30,7 +30,8 @@ SRC = 	main.cpp \
 		UsageCPUModule.cpp \
 		CPUModule.cpp \
 		RAMModule.cpp \
-		NetworkModule.cpp 
+		NetworkModule.cpp \
+		CLI.cpp
 
 
 SOURCES = $(addprefix $(SRC_DIR), $(SRC))
@@ -41,7 +42,7 @@ UNAME_S := $(shell uname -s)
 
 CXXFLAGS = -I$(IMPL_DIR) -I$(IMGUI_DIR) -Iincludes/
 CXXFLAGS += -g -Wall -Werror -Wextra -fsanitize=address
-LIBS =
+LIBS = -lncurses
 
 ##---------------------------------------------------------------------
 ## OPENGL LOADER

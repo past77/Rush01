@@ -57,24 +57,27 @@ float UsageCPUModule::getIdleData(){
 
 std::string	UsageCPUModule::setData(){
 	FILE *fp;
-	char buf[256];
+	char buf[512];
 	std::string str;
+	std::string str2;
 	const std::string findStr = "CPU usage: ";
 
-
-
 	fp = popen("top ", "r");
-	while(fgets(buf, sizeof(buf)-1, fp) != NULL)
+	if (fp)
 	{
-		str = buf;
-		if (std::string::npos != str.find(findStr))
+		while(fgets(buf, sizeof(buf)-1, fp) != NULL)
 		{
-			str = ltrim(str, findStr);
-			return str;
+			str = std::string(buf);
+			if (std::string::npos != str.find(findStr))
+			{
+				str2 = ltrim(str, findStr);
+				return str2;
+			}
 		}
 	}
-	pclose(fp);
-	return NULL;
+	if (fp)
+		pclose(fp);
+	return "";
 }
 
 void		UsageCPUModule::gatherUsage(float *arr)
