@@ -18,7 +18,7 @@
 #include "CPUModule.hpp"
 #include "RAMModule.hpp"
 #include "NetworkModule.hpp"
-
+#include "main.hpp"
 
 
 
@@ -46,15 +46,15 @@ private:
 	bool			flagCPU;
 	bool			flagRAM;
 	bool			flagNetwork;
-	UsernameModule 	usernameMod; 	//text
-	HostnameModule 	hostNameMod;	//text
-	OSVersionModule OSMod;			//text
+	UsernameModule 	usernameMod; 	//text+
+	HostnameModule 	hostNameMod;	//text+
+	OSVersionModule OSMod;			//text+
 	DateTimeModule 	timeMod;		//text
 	UsageCPUModule	usageCPUMod;	//plot + text
 	CPUModule		CPUMod;			//text
 	RAMModule		RAMMod;			//text
 	NetworkModule	networkMod;		//text
-
+	unsigned long long	t;
 public:
 	GUI();
 	~GUI();

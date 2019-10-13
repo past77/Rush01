@@ -40,7 +40,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 
 CXXFLAGS = -I$(IMPL_DIR) -I$(IMGUI_DIR) -Iincludes/
-CXXFLAGS += -g -Wall -Wformat -fsanitize=address
+CXXFLAGS += -g -Wall -Werror -Wextra -fsanitize=address
 LIBS =
 
 ##---------------------------------------------------------------------
@@ -138,3 +138,4 @@ fclean: clean
 	@rm -rf $(NAME)
 	@printf "$(C_MAGENTA)$(NAME):$(C_NONE) %-25s$(C_RED)[done]$(C_NONE)\n" $@
 
+re: fclean all

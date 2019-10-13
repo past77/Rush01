@@ -9,4 +9,6 @@ std::string ltrim(const std::string& s,const std::string findStr);
 
 std::vector<std::string> vecSplit(std::string str);
 
+unsigned long long get_time();
+
 #endif

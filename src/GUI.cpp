@@ -34,7 +34,7 @@ GUI::GUI(/* args */): clearColor(0.45f, 0.55f, 0.60f, 1.00f), running(true)
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-    this->window = SDL_CreateWindow("GKrellM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
+    this->window = SDL_CreateWindow("GKrellM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 600, window_flags);
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
     SDL_GL_MakeCurrent(window, gl_context);
     SDL_GL_SetSwapInterval(1); // Enable vsync
@@ -116,13 +116,11 @@ void	GUI::update()
 {
     ImGuiStyle& style = ImGui::GetStyle();
     static ImGuiStyle ref_saved_style;
-    Data        *d;
 	std::string		str_data;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(window);
 	ImGui::NewFrame();
 
-	ImGui::ShowDemoWindow(NULL);
 	ImGui::Begin("GKrellM", NULL);
     if (flagSkin)
     {
@@ -147,14 +145,38 @@ void	GUI::update()
 		str_data = getModuleStringData(hostNameMod.getData());
 	    ImGui::Text("%s", str_data.c_str());
     }
-	// d = imd.getData();
-	// ImGui::Text((d->data).c_str());
-	// d = osv.getData();
-	// ImGui::Text((d->data).c_str());
-	// d = htm.getData();
-	// ImGui::Text((d->data).c_str());
-	// d = dtm.getData();
-	// ImGui::Text((d->data).c_str());
+    if (flagOS)
+    {
+        str_data = getModuleStringData(OSMod.getData());
+        ImGui::Text("%s", str_data.c_str());
+    }
+    if (flagTime)
+    {
+        str_data = getModuleStringData(timeMod.getData());
+        ImGui::Text("%s", str_data.c_str());
+    }
+    if (flagRAM)
+    {
+        str_data = getModuleStringData(RAMMod.getData());
+        ImGui::Text("%s", str_data.c_str());
+    }
+    if (flagCPU)
+    {
+        static float arr[3];
+        str_data = getModuleStringData(CPUMod.getData());
+        ImGui::Text("%s", str_data.c_str());
+		
+		str_data = getModuleStringData(usageCPUMod.getData());
+		usageCPUMod.gatherUsage(arr);
+		ImGui::PlotHistogram("CPU Usage", arr, 3, 0, NULL, 0, 100, ImVec2(300, 80));
+		ImGui::Text("%s", str_data.c_str());
+
+    }
+    if (flagNetwork)
+    {
+        str_data = getModuleStringData(networkMod.getData());
+        ImGui::Text("%s", str_data.c_str());
+    }
 	ImGui::End();
 
 }

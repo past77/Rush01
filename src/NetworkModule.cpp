@@ -25,12 +25,10 @@ std::string	NetworkModule::setData(){
 	char buf[256];
 	std::string str;
 	const std::string findStr = "Networks: packets:";
-
-		fp = popen("top -l 1 -n 0 | grep \"Networks:\"", "r");
-		fgets(buf, sizeof(buf)-1, fp);
-		str = buf;
-		str = ltrim(str, findStr);
-		std::cout << str;
+	fp = popen("top -l 1 -n 0 | grep \"Networks:\"", "r");
+	fgets(buf, sizeof(buf)-1, fp);
+	str = buf;
+	str = ltrim(str, findStr);
 	pclose(fp);
 	return str;
 }
