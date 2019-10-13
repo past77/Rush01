@@ -1,7 +1,12 @@
 #include "UsageCPUModule.hpp"
 #include "main.hpp"
+
 UsageCPUModule::UsageCPUModule() : d(new Data()){}
-UsageCPUModule::~UsageCPUModule(){}
+UsageCPUModule::~UsageCPUModule()
+{
+	if (d)
+		delete d;
+}
 
 UsageCPUModule & UsageCPUModule::operator=(UsageCPUModule const &rhs){
 	if (this != &rhs)
@@ -51,14 +56,16 @@ std::string	UsageCPUModule::setData(){
 
 
 	fp = popen("top ", "r");
-	while(fgets(buf, sizeof(buf)-1, fp) != NULL){
-	str = buf;
-	if (std::string::npos != str.find(findStr))
+	while(fgets(buf, sizeof(buf)-1, fp) != NULL)
 	{
-		str = ltrim(str, findStr);
-		return str;
+		str = buf;
+		if (std::string::npos != str.find(findStr))
+		{
+			str = ltrim(str, findStr);
+			return str;
+		}
 	}
-	}
+	pclose(fp);
 	return NULL;
 }
 

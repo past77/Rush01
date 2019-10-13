@@ -1,9 +1,15 @@
 
 #include "HostnameModule.hpp"
 
+#include <iostream>
+
 HostnameModule::HostnameModule() : d(new Data()){
 	d->data = setData();}
-HostnameModule::~HostnameModule(){}
+HostnameModule::~HostnameModule()
+{
+	if (d)
+		delete d;
+}
 
 HostnameModule & HostnameModule::operator=(HostnameModule const &rhs){
 	if (this != &rhs)

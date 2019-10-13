@@ -1,7 +1,11 @@
 #include "DateTimeModule.hpp"
 
 DateTimeModule::DateTimeModule() : d(new Data()){}
-DateTimeModule::~DateTimeModule(){}
+DateTimeModule::~DateTimeModule()
+{
+	if (d)
+		delete d;
+}
 
 DateTimeModule & DateTimeModule::operator=(DateTimeModule const &rhs){
 	if (this != &rhs)

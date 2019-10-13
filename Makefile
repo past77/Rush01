@@ -23,10 +23,14 @@ SRC = 	main.cpp \
 		GUI.cpp \
 		IMonitorModule.cpp \
 		IMonitorDisplay.cpp \
-		OSVersionModule.cpp \
-		UsernameModule.cpp \
 		HostnameModule.cpp \
-		DateTimeModule.cpp
+		UsernameModule.cpp \
+		OSVersionModule.cpp \
+		DateTimeModule.cpp \
+		UsageCPUModule.cpp \
+		CPUModule.cpp \
+		RAMModule.cpp \
+		NetworkModule.cpp 
 
 
 SOURCES = $(addprefix $(SRC_DIR), $(SRC))

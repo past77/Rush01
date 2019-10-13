@@ -11,11 +11,11 @@
 #include <string>
 #include <ctime>
 
-	struct Data 
-	{
-		std::string name;
-		std::string data;
-	};
+struct Data 
+{
+	std::string name;
+	std::string data;
+};
 
 class IMonitorModule
 {
@@ -25,7 +25,6 @@ public:
 
 protected:
 	virtual std::string setData() = 0;
-
 };
 
 

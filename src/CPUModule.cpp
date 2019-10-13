@@ -2,7 +2,11 @@
 #include "main.hpp"
 
 CPUModule::CPUModule() : d(new Data()){}
-CPUModule::~CPUModule(){}
+CPUModule::~CPUModule()
+{
+	if (d)
+		delete d;
+}
 
 CPUModule & CPUModule::operator=(CPUModule const &rhs){
 	if (this != &rhs)
@@ -12,12 +16,6 @@ CPUModule & CPUModule::operator=(CPUModule const &rhs){
 CPUModule::CPUModule(CPUModule const &src){
 	*this = src;
 }
-
-// std::string rtrim(const std::string& s)
-// {
-// 	size_t end = s.find_last_not_of("\n\r\t\f\v");
-// 	return (end == std::string::npos) ? "" : s.substr(0, end + 1);
-// }
 
 std::string	CPUModule::setData(){
 	FILE *fp;
@@ -32,12 +30,13 @@ std::string	CPUModule::setData(){
 	std::size_t pos = str.find(" ");
 	osName = str.substr (pos + 1  );
 	ss << rtrim(osName) ;
+	pclose(fp);
 	fp = popen("getconf _NPROCESSORS_ONLN", "r");
 	fgets(buf, sizeof(buf)-1, fp);
 	str = buf;
 	ss << "/Cores: "<< str;
 	std::string s = ss.str();
-
+	pclose(fp);
 	return s;
 }
 

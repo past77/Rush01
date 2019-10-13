@@ -34,7 +34,7 @@ GUI::GUI(/* args */): clearColor(0.45f, 0.55f, 0.60f, 1.00f), running(true)
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-    this->window = SDL_CreateWindow("Dear ImGui SDL2+OpenGL3 example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
+    this->window = SDL_CreateWindow("GKrellM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
     SDL_GL_MakeCurrent(window, gl_context);
     SDL_GL_SetSwapInterval(1); // Enable vsync
@@ -62,12 +62,19 @@ GUI::GUI(/* args */): clearColor(0.45f, 0.55f, 0.60f, 1.00f), running(true)
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
+    // ImGui::StyleColorsDark();
+    ImGui::StyleColorsClassic();
 
     // Setup Platform/Renderer bindings
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL3_Init(glsl_version);
+    flagSkin = false;
+    flagUsername = true;
+	flagOS = false;
+	flagTime = false;
+	flagCPU = false;
+	flagRAM = false;
+	flagNetwork = false;
 }
 
 GUI::~GUI()
@@ -107,22 +114,47 @@ void    GUI::events()
 
 void	GUI::update()
 {
+    ImGuiStyle& style = ImGui::GetStyle();
+    static ImGuiStyle ref_saved_style;
+    Data        *d;
+	std::string		str_data;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(window);
 	ImGui::NewFrame();
 
 	ImGui::ShowDemoWindow(NULL);
 	ImGui::Begin("GKrellM", NULL);
-	Data *d;
-	ImGui::ColorEdit3("Skin", (float*)&clearColor);
-	d = imd.getData();
-	ImGui::Text((d->data).c_str());
-	d = osv.getData();
-	ImGui::Text((d->data).c_str());
-	d = htm.getData();
-	ImGui::Text((d->data).c_str());
-	d = dtm.getData();
-	ImGui::Text((d->data).c_str());
+    if (flagSkin)
+    {
+        if (ImGui::ShowStyleSelector("Styles Selector"))
+            ref_saved_style = style;
+        ImGui::ColorEdit3("Skin", (float*)&clearColor);
+    }
+    if (ImGui::CollapsingHeader("Configuration"))
+    {
+        ImGui::Checkbox("Hostname/username module", &flagUsername);
+        ImGui::Checkbox("OS info module", &flagOS);
+        ImGui::Checkbox("Date/time module", &flagTime);
+        ImGui::Checkbox("CPU module", &flagCPU);
+        ImGui::Checkbox("RAM module", &flagRAM);
+        ImGui::Checkbox("Network throughput module", &flagNetwork);
+		ImGui::Checkbox("Skin", &flagSkin);
+    }
+	if (flagUsername)
+    {
+		str_data = getModuleStringData(usernameMod.getData());
+		ImGui::Text("%s", str_data.c_str());
+		str_data = getModuleStringData(hostNameMod.getData());
+	    ImGui::Text("%s", str_data.c_str());
+    }
+	// d = imd.getData();
+	// ImGui::Text((d->data).c_str());
+	// d = osv.getData();
+	// ImGui::Text((d->data).c_str());
+	// d = htm.getData();
+	// ImGui::Text((d->data).c_str());
+	// d = dtm.getData();
+	// ImGui::Text((d->data).c_str());
 	ImGui::End();
 
 }
@@ -138,7 +170,11 @@ void	GUI::render()
 	SDL_GL_SwapWindow(window);
 }
 
-
+std::string		GUI::getModuleStringData(Data *d)
+{
+	std::string info = std::string(d->name + ": " + d->data);
+	return (info);
+}
 
 
 SDL_Window *GUI::getWindow() { return (this->window); }

@@ -4,7 +4,11 @@
 OSVersionModule::OSVersionModule(): d(new Data()){
 	d->data = setData();
 }
-OSVersionModule::~OSVersionModule(){}
+OSVersionModule::~OSVersionModule()
+{
+	if (d)
+		delete d;
+}
 
 OSVersionModule & OSVersionModule::operator=(OSVersionModule const &rhs){
 	if (this != &rhs)

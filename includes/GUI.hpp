@@ -14,6 +14,13 @@
 #include "UsernameModule.hpp"
 #include "OSVersionModule.hpp"
 #include "DateTimeModule.hpp"
+#include "UsageCPUModule.hpp"
+#include "CPUModule.hpp"
+#include "RAMModule.hpp"
+#include "NetworkModule.hpp"
+
+
+
 
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
 #include <GL/gl3w.h>    // Initialize with gl3wInit()
@@ -32,11 +39,22 @@ private:
 	SDL_GLContext	glContext;
 	ImVec4 			clearColor;
 	bool			running;
+	bool			flagSkin;
+	bool			flagUsername;
+	bool			flagOS;
+	bool			flagTime;
+	bool			flagCPU;
+	bool			flagRAM;
+	bool			flagNetwork;
+	UsernameModule 	usernameMod; 	//text
+	HostnameModule 	hostNameMod;	//text
+	OSVersionModule OSMod;			//text
+	DateTimeModule 	timeMod;		//text
+	UsageCPUModule	usageCPUMod;	//plot + text
+	CPUModule		CPUMod;			//text
+	RAMModule		RAMMod;			//text
+	NetworkModule	networkMod;		//text
 
-	UsernameModule 	imd;
-	OSVersionModule osv;
-	HostnameModule 	htm;
-	DateTimeModule 	dtm;
 public:
 	GUI();
 	~GUI();
@@ -52,6 +70,7 @@ public:
 	void			events();
 	void			update();
 	void			render();
+	std::string		getModuleStringData(Data *d);
 };
 
 #endif
