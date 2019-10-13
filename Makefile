@@ -31,7 +31,8 @@ SRC = 	main.cpp \
 		CPUModule.cpp \
 		RAMModule.cpp \
 		NetworkModule.cpp \
-		CLI.cpp
+		CLI.cpp \
+		KotikModule.cpp
 
 
 SOURCES = $(addprefix $(SRC_DIR), $(SRC))

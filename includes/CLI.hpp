@@ -11,6 +11,7 @@
 #include "CPUModule.hpp"
 #include "RAMModule.hpp"
 #include "NetworkModule.hpp"
+#include "KotikModule.hpp"
 # include <ncurses.h>
 # include <iostream>
 
@@ -34,6 +35,7 @@ private:
 	int			_x;
 	//WINDOW		*window;
 	bool			flagRunning;
+	bool			kotikFlag;
 	bool			flagUsername;
 	bool			flagOS;
 	bool			flagTime;
@@ -48,6 +50,7 @@ private:
 	CPUModule		CPUMod;			//text
 	RAMModule		RAMMod;			//text
 	NetworkModule	networkMod;		//text
+	KotikModule		kotikModule;
 
 
 };

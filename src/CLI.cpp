@@ -1,7 +1,7 @@
 #include "CLI.hpp"
 #include <iostream>
 
-CLI::CLI() : _y(50), _x(100), flagRunning(true), flagUsername(true), flagOS(true),
+CLI::CLI() : _y(50), _x(100), flagRunning(true), kotikFlag(false), flagUsername(true), flagOS(true),
 flagTime(true), flagCPU(true), flagRAM(true), flagNetwork(true)
 {
 	initscr();
@@ -73,6 +73,9 @@ std::string		CLI::getModuleStringData(Data *d)
 		case 54:
 			flagNetwork = !flagNetwork;
 			break;
+		case ' ':
+			kotikFlag = !kotikFlag;
+			break;
 		case 27:
 			flagRunning = false;
 			break;
@@ -130,6 +133,28 @@ void	CLI::render()
 		move(iter += 2, 5);
 		str_data = getModuleStringData(networkMod.getData());
 		printw("%s", str_data.c_str());
+	}
+	if (kotikFlag)
+	{
+		move(iter += 2, 5);	
+		str_data = getModuleStringData(kotikModule.getData());
+		printw("%s", str_data.c_str());
+		wattron(stdscr, COLOR_PAIR(1) | A_BOLD);
+		mvwprintw(stdscr, iter += 2,
+			5, "%s", kotikModule.getCatPart().c_str());
+		mvwprintw(stdscr, iter += 1,
+			5, "%s", kotikModule.getCatPart().c_str());
+		mvwprintw(stdscr, iter += 1,
+			5, "%s", kotikModule.getCatPart().c_str());
+		mvwprintw(stdscr, iter += 1,
+			5, "%s", kotikModule.getCatPart().c_str());
+		mvwprintw(stdscr, iter += 1,
+			5, "%s", kotikModule.getCatPart().c_str());
+		mvwprintw(stdscr, iter += 1,
+			5, "%s", kotikModule.getCatPart().c_str());
+		mvwprintw(stdscr, iter += 1,
+			5, "%s", kotikModule.getCatPart().c_str());
+		wattroff(stdscr, COLOR_PAIR(1) | A_BOLD);
 	}
 
 	box(stdscr, 0, 0);
