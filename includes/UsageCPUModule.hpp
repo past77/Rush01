@@ -16,13 +16,15 @@ public:
 	float getUserData();
 	float getSysData();
 	float getIdleData();
-
+	void	gatherUsage(float *arr);
+	bool	isReadyForUpdate();
 private:
 	std::string	setData();
 	float user;
 	float sys;
 	float idle;
 	Data *d;
+	unsigned long long lastUpdateTime;
 };
 
 #endif

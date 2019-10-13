@@ -1,5 +1,5 @@
 #include "GUI.hpp"
-
+#include <sys/time.h>
 
 std::string rtrim(const std::string& s)
 {
@@ -20,11 +20,22 @@ std::vector<std::string> vecSplit(std::string str){
 	return results;
 }
 
+unsigned long long get_time()
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	unsigned long long secondsSinceEpoch =
+    (unsigned long long)(tv.tv_sec) * 1000;
+	return (secondsSinceEpoch);
+}
+
 
 int main(int, char**)
 {
     GUI interface;
 
+
     interface.mainloop();
+
     return 0;
 }

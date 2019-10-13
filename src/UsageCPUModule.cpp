@@ -1,7 +1,8 @@
 #include "UsageCPUModule.hpp"
 #include "main.hpp"
 
-UsageCPUModule::UsageCPUModule() : d(new Data()){}
+UsageCPUModule::UsageCPUModule() : user(0), sys(0), idle(0), d(new Data()), lastUpdateTime(get_time())
+{}
 UsageCPUModule::~UsageCPUModule()
 {
 	if (d)
@@ -18,33 +19,40 @@ UsageCPUModule::UsageCPUModule(UsageCPUModule const &src){
 }
 
 
-float UsageCPUModule::getUserData(){
+float UsageCPUModule::getUserData()
+{
 	std::vector<std::string> res;
-
-	res = vecSplit(d->data);
-	this->user = stof(res.at(0));
-
+	if (!d->data.empty())
+	{
+		res = vecSplit(d->data);
+		this->user = stof(res.at(0));
+	}
 	return this->user;
 }
 
-float UsageCPUModule::getSysData(){
+float UsageCPUModule::getSysData()
+{
 	std::vector<std::string> res;
 
-	res = vecSplit(d->data);
-	this->sys = stof(res.at(2));
-
-	return this->sys;
+	if (!d->data.empty())
+	{
+		res = vecSplit(d->data);
+		this->sys = stof(res.at(2));
 	}
+	return this->sys;
+}
 
 
 float UsageCPUModule::getIdleData(){
 	std::vector<std::string> res;
 
-	res = vecSplit(d->data);
-	this->idle = stof(res.at(4));
-
-	return this->idle;
+	if (!d->data.empty())
+	{
+		res = vecSplit(d->data);
+		this->idle = stof(res.at(4));
 	}
+	return this->idle;
+}
 
 
 std::string	UsageCPUModule::setData(){
@@ -69,8 +77,32 @@ std::string	UsageCPUModule::setData(){
 	return NULL;
 }
 
+void		UsageCPUModule::gatherUsage(float *arr)
+{
+	
+	if (arr)
+	{
+		arr[0] = getUserData();
+		arr[1] = getSysData();
+		arr[2] = getIdleData();
+	}
+}
+
+bool	UsageCPUModule::isReadyForUpdate()
+{
+	if ((get_time() - lastUpdateTime) >= 3)
+	{
+		lastUpdateTime = get_time();
+		return (true);
+	}
+	return (false);
+}
+
 Data *		UsageCPUModule::getData(void){
-	this->d->name = "Usage CPU";
-	d->data = setData();
+	if (isReadyForUpdate())
+	{
+		this->d->name = "Usage CPU";
+		d->data = setData();
+	}
 	return d;
 }
