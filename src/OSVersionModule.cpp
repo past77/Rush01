@@ -18,16 +18,21 @@ FILE *fp;
 	std::string str;
 	std::stringstream ss;
 	std::string osName;
+	std::string s;
 
-	fp = popen("sw_vers", "r");
-	while (fgets(buf, sizeof(buf) - 1, fp) != NULL){
-	str = buf;
-	std::size_t pos = str.find("\t");
-	osName = str.substr (pos + 1  );
-	ss << rtrim(osName) << " | ";
-}
-	std::string s = ss.str();
-
+	if ((fp = popen("sw_vers", "r")))
+	{
+		while (fgets(buf, sizeof(buf) - 1, fp) != NULL)
+		{
+			str = buf;
+			std::size_t pos = str.find("\t");
+			osName = str.substr (pos + 1  );
+			ss << rtrim(osName) << " | ";
+		}
+		s = ss.str();
+	}
+	if (fp)
+		pclose(fp);
 	return s;
 }
 
