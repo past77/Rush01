@@ -1,5 +1,5 @@
-#ifndef USERNAMEMODULE
-# define USERNAMEMODULE
+#ifndef USERNAMEMODULE_HPP
+# define USERNAMEMODULE_HPP
 
 #include "IMonitorModule.hpp"
 

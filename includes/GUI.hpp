@@ -9,6 +9,7 @@
 
 
 #include "IMonitorModule.hpp"
+#include "IMonitorDisplay.hpp"
 #include "HostnameModule.hpp"
 #include "UsernameModule.hpp"
 #include "OSVersionModule.hpp"
@@ -24,12 +25,14 @@
 #include IMGUI_IMPL_OPENGL_LOADER_CUSTOM
 #endif
 
-class GUI
+class GUI: public IMonitorDisplay
 {
 private:
 	SDL_Window		*window;
-	SDL_GLContext	gl_context;
+	SDL_GLContext	glContext;
 	ImVec4 			clearColor;
+	bool			running;
+
 	UsernameModule 	imd;
 	OSVersionModule osv;
 	HostnameModule 	htm;
@@ -37,14 +40,18 @@ private:
 public:
 	GUI();
 	~GUI();
+	GUI(GUI const &);
+	GUI &operator =(GUI const &);
+
 	SDL_Window		*getWindow();
 	SDL_GLContext	getGLContext();
 	ImVec4			getClearColor();
 	void			drawInterface();
 	void			renderInterface();
-
+	void			mainloop();
+	void			events();
+	void			update();
+	void			render();
 };
-
-
 
 #endif

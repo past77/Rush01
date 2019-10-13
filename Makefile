@@ -21,9 +21,10 @@ SRC_DIR = src/
 NAME = ft_gkrellm
 SRC = 	main.cpp \
 		GUI.cpp \
+		IMonitorModule.cpp \
+		IMonitorDisplay.cpp \
 		OSVersionModule.cpp \
 		UsernameModule.cpp \
-		IMonitorModule.cpp \
 		HostnameModule.cpp \
 		DateTimeModule.cpp
 

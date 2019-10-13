@@ -1,5 +1,5 @@
-#ifndef IMONITORMODULE_H
-# define IMONITORMODULE_H
+#ifndef IMONITORMODULE_HPP
+# define IMONITORMODULE_HPP
 
 #include <iostream>
 #include <unistd.h>

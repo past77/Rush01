@@ -1,7 +1,9 @@
 	
 #include "UsernameModule.hpp"
 
-	UsernameModule::UsernameModule(): d(new Data()){}
+	UsernameModule::UsernameModule(): d(new Data()){
+		d->data = setData();
+	}
 	UsernameModule::~UsernameModule(){}
 	UsernameModule & UsernameModule::operator=(UsernameModule const &rhs){
 		if (this != &rhs)
@@ -17,6 +19,5 @@
 	
 	Data *		UsernameModule::getData(void) {
 		d->name = "Username";
-		d->data = setData();
 		return d;
 	}

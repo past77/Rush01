@@ -1,7 +1,7 @@
 #include "GUI.hpp"
 
 
-GUI::GUI(/* args */): clearColor(0.45f, 0.55f, 0.60f, 1.00f)
+GUI::GUI(/* args */): clearColor(0.45f, 0.55f, 0.60f, 1.00f), running(true)
 {
 	// Setup SDL
     // (Some versions of SDL before <2.0.10 appears to have performance/stalling issues on a minority of Windows systems, 
@@ -72,19 +72,49 @@ GUI::GUI(/* args */): clearColor(0.45f, 0.55f, 0.60f, 1.00f)
 
 GUI::~GUI()
 {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+    ImGui::DestroyContext();
+
+    SDL_GL_DeleteContext(glContext);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
-void	GUI::drawInterface()
+
+void    GUI::mainloop()
+{
+    while (running)
+    {
+        events();
+        update();
+		render();
+    }
+}
+
+void    GUI::events()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        ImGui_ImplSDL2_ProcessEvent(&event);
+        if (event.type == SDL_QUIT)
+            running = false;
+        if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(window))
+            running = false;
+    }
+}
+
+void	GUI::update()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(window);
 	ImGui::NewFrame();
 
 	ImGui::ShowDemoWindow(NULL);
-
-	ImGui::Begin("GKrellM", NULL);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+	ImGui::Begin("GKrellM", NULL);
 	Data *d;
-	ImGui::ColorEdit3("Skin", (float*)&clearColor); // Edit 3 floats representing a color
+	ImGui::ColorEdit3("Skin", (float*)&clearColor);
 	d = imd.getData();
 	ImGui::Text((d->data).c_str());
 	d = osv.getData();
@@ -93,12 +123,11 @@ void	GUI::drawInterface()
 	ImGui::Text((d->data).c_str());
 	d = dtm.getData();
 	ImGui::Text((d->data).c_str());
-
 	ImGui::End();
 
 }
 
-void	GUI::renderInterface()
+void	GUI::render()
 {
 	ImGui::Render();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -109,7 +138,10 @@ void	GUI::renderInterface()
 	SDL_GL_SwapWindow(window);
 }
 
+
+
+
 SDL_Window *GUI::getWindow() { return (this->window); }
-SDL_GLContext	GUI::getGLContext() { return (this->gl_context); }
+SDL_GLContext	GUI::getGLContext() { return (this->glContext); }
 ImVec4			GUI::getClearColor() { return (this->clearColor); }
 

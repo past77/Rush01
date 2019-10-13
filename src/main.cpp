@@ -1,45 +1,30 @@
 #include "GUI.hpp"
 
-// Main code
+
+std::string rtrim(const std::string& s)
+{
+	size_t end = s.find_last_not_of("\n\r\t\f\v");
+	return (end == std::string::npos) ? "" : s.substr(0, end + 1);
+}
+
+std::string ltrim(const std::string& s,const std::string findStr) {
+	size_t start = s.find_first_not_of(findStr);
+	return (start == std::string::npos) ? "" : s.substr(start);
+}
+
+std::vector<std::string> vecSplit(std::string str){
+
+	std::istringstream iss(str);
+	std::vector<std::string> results((std::istream_iterator<std::string>(iss)), std::istream_iterator<std::string>());
+
+	return results;
+}
+
+
 int main(int, char**)
 {
     GUI interface;
-    // Our state
-	ImVec4	clear_color;
-    // Main loop
-    bool done = false;
-    while (!done)
-    {
-        // Poll and handle events (inputs, window resize, etc.)
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            ImGui_ImplSDL2_ProcessEvent(&event);
-            if (event.type == SDL_QUIT)
-                done = true;
-            if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(interface.getWindow()))
-                done = true;
-        }
 
-        // Start the Dear ImGui frame
-
-        interface.drawInterface();
-        // Rendering
-		interface.renderInterface();
-    }
-
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
-    ImGui::DestroyContext();
-
-    SDL_GL_DeleteContext(interface.getGLContext());
-    SDL_DestroyWindow(interface.getWindow());
-    SDL_Quit();
-
+    interface.mainloop();
     return 0;
 }
