@@ -1,5 +1,5 @@
-#ifndef HOSTNAMEMODULE
-# define HOSTNAMEMODULE
+#ifndef HOSTNAMEMODULE_HPP
+# define HOSTNAMEMODULE_HPP
 
 #include "IMonitorModule.hpp"
 

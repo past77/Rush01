@@ -1,5 +1,5 @@
-#ifndef DATETIMEMODULE
-# define DATETIMEMODULE
+#ifndef DATETIMEMODULE_HPP
+# define DATETIMEMODULE_HPP
 
 #include "IMonitorModule.hpp"
 

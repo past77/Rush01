@@ -1,5 +1,5 @@
-#ifndef OSVERSIONMODULE
-# define OSVERSIONMODULE
+#ifndef OSVERSIONMODULE_HPP
+# define OSVERSIONMODULE_HPP
 
 #include "IMonitorModule.hpp"
 
@@ -12,7 +12,6 @@ public:
 	OSVersionModule(OSVersionModule const &obj);
 
 	Data *		getData(void);
-	std::string rtrim(const std::string& s);
 
 private:
 	std::string	setData();

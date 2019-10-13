@@ -1,7 +1,8 @@
 
 #include "HostnameModule.hpp"
 
-HostnameModule::HostnameModule() : d(new Data()){}
+HostnameModule::HostnameModule() : d(new Data()){
+	d->data = setData();}
 HostnameModule::~HostnameModule(){}
 
 HostnameModule & HostnameModule::operator=(HostnameModule const &rhs){
@@ -22,6 +23,6 @@ std::string	HostnameModule::setData(){
 
 Data *		HostnameModule::getData(void){
 	this->d->name = "Hostname";
-	d->data = setData();
+	
 	return d;
 }

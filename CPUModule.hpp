@@ -1,5 +1,5 @@
-#ifndef CPUMODULE
-# define CPUMODULE
+#ifndef CPUMODULE_HPP
+# define CPUMODULE_HPP
 
 #include "IMonitorModule.hpp"
 
