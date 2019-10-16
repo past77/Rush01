@@ -42,7 +42,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 
 CXXFLAGS = -I$(IMPL_DIR) -I$(IMGUI_DIR) -Iincludes/
-CXXFLAGS += -g -Wall -Werror -Wextra -fsanitize=address
+CXXFLAGS += -g -Wall -Werror -Wextra
 LIBS = -lncurses
 
 ##---------------------------------------------------------------------
