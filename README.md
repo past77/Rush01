@@ -9,5 +9,5 @@ make
 ./ft_gkrellm [cli, gui] 
  
 ```
-cli : show monitor using ucurces \n
+cli : show monitor using ucurces <b>
 gui : show monitor using gui
