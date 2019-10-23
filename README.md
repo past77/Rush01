@@ -1,3 +1,2 @@
-# ft_gkrellm
 GNU Krell Monitors 
-<h2> p<h2>
+<h4>ft_gkrellm is a system monitor software.<h4>
