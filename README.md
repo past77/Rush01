@@ -2,7 +2,6 @@ GNU Krell Monitors
 ## ft_gkrellm is a system monitor software (C++, ncurces, GUI)
 ![Screenshot](screenshots/screenshotGui1.png)
 ![Screenshot](screenshots/screenshotGui2.png)
-![Screenshot](screenshots/screenshotNcr1.png)
 ![Screenshot](screenshots/screenshotNcr2.png)
 
 ## How to rum
