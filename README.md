@@ -1,5 +1,5 @@
 GNU Krell Monitors 
-##ft_gkrellm is a system monitor software (C++, ncurces, GUI)
+## ft_gkrellm is a system monitor software (C++, ncurces, GUI)
 
 ## How to rum
 
